@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly2.Models;
 using System.Data.Entity;
+using Vidly2.ViewModels;
 
 namespace Vidly2.Controllers
 {
@@ -20,6 +21,17 @@ namespace Vidly2.Controllers
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
+        }
+
+        public ActionResult New()
+        {
+
+            var membershipTypes = _context.MembershipTypes.ToList();
+            var viewModel = new NewCustomerViewModel
+            {
+                membershipTypes = membershipTypes,
+            };
+            return View(viewModel);
         }
 
         // GET: Customers
