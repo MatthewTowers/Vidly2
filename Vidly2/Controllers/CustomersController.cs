@@ -68,11 +68,14 @@ namespace Vidly2.Controllers
         }
 
         // GET: Customers
+        
         public ActionResult Index()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList(); // differed execution - query is executed when we iterate over object or by calling the ToList methd
+            //var customers = _context.Customers.Include(c => c.MembershipType).ToList(); // differed execution - query is executed when we iterate over object or by calling the ToList methd
 
-            return View(customers);
+            //return View(customers);
+
+            return View();
         }
 
         public ActionResult Details(int id)
