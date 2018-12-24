@@ -6,12 +6,15 @@ using System.Web.Mvc;
 using Vidly2.Models;
 using System.Data.Entity;
 using Vidly2.ViewModels;
+using System.Runtime.Caching;
 
 namespace Vidly2.Controllers
 {
     public class CustomersController : Controller
     {
         private ApplicationDbContext _context;
+
+        public const string cacheString = "genre";
 
         public CustomersController()
         {
@@ -74,6 +77,13 @@ namespace Vidly2.Controllers
             //var customers = _context.Customers.Include(c => c.MembershipType).ToList(); // differed execution - query is executed when we iterate over object or by calling the ToList methd
 
             //return View(customers);
+
+            if (MemoryCache.Default[cacheString] == null)
+            {
+                MemoryCache.Default[cacheString] = _context.Genres.ToList();
+            }
+
+            var genres = MemoryCache.Default[cacheString] as IEnumerable<Genre>;
 
             return View();
         }
